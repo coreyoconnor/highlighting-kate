@@ -17,13 +17,15 @@ This one reads ruby code from stdin and writes HTML:
 > import Text.Blaze.Renderer.String (renderHtml)
 > import Text.Blaze (toHtml)
 > import Text.Blaze.Html5 as H
+> import Text.Blaze.Html5.Attributes as A
 >
 > main = do
 >   code <- getContents
 >   putStrLn $ renderHtml
->            $ do H.head (styleToHtml tango)
+>            $ do H.head $ H.style ! A.type_ (toValue "text/css")
+>                        $ toHtml $ styleToCss tango
 >                 H.body $ toHtml
->                        $ formatBlock defaultFormatOpts
+>                        $ formatHtmlBlock defaultFormatOpts
 >                        $ highlightAs "ruby" code
 
 -}
